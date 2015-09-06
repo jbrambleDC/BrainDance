@@ -27,11 +27,11 @@ class Location(models.Model):
         return self.lat, self.lon
 
 class User(models.Model):
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
-    birthdate = models.DateTimeField(null=False)
+    first_name = models.CharField(max_length=20, null=True)
+    last_name = models.CharField(max_length=20, null=True)
+    birthdate = models.DateTimeField(null=False, blank=True, default='1900-01-01')
     email = models.EmailField()
-    password = models.CharField(max_length=20)
+    password = models.CharField(max_length=20,null=False, default='0')
     ##Incorporate Preferences
 
     def __str__(self):
@@ -41,10 +41,10 @@ class Activity(models.Model):
     activity_name = models.CharField(max_length=200)
     activity_location = models.ManyToManyField(Location) ###maybe OneToManyField
     activity_type = models.CharField(max_length=200)  ##add choices
-    acttivity_season = models.CharField(max_length=20) ##add choices
-    begin_date = models.DateTimeField(null=True)
-    end_date = models.DateTimeField(null=True)
-    description = models.TextField()
+    activity_weather = models.CharField(max_length=20, default='MILD') ##add choices
+    begin_date = models.DateTimeField(blank=True, null=True)
+    end_date = models.DateTimeField(blank=True, null=True)
+    description = models.TextField(null=True)
     price = models.FloatField(null=True)
 
     def __str__(self):
