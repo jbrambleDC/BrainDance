@@ -29,6 +29,7 @@ class Location(models.Model):
 class User(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
+    birthdate = models.DateTimeField(null=False)
     email = models.EmailField()
     password = models.CharField(max_length=20)
     ##Incorporate Preferences
@@ -40,8 +41,10 @@ class Activity(models.Model):
     activity_name = models.CharField(max_length=200)
     activity_location = models.ManyToManyField(Location) ###maybe OneToManyField
     activity_type = models.CharField(max_length=200)  ##add choices
-    acttivity_season = models.CharField() ##add choices
-    activity_date = models.DateTimeField(default=null)
+    acttivity_season = models.CharField(max_length=20) ##add choices
+    begin_date = models.DateTimeField(null=True)
+    end_date = models.DateTimeField(null=True)
+    description = models.TextField()
     price = models.FloatField(null=True)
 
     def __str__(self):
@@ -49,3 +52,9 @@ class Activity(models.Model):
 
     def get_price(self):
         return self.price
+
+    def get_duration(self):
+        return self.end_date - self.begin_date ## will this work?
+
+    def get_desc(self):
+        return self.description
