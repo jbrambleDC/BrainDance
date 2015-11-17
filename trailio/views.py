@@ -3,16 +3,23 @@ from django.http import HttpResponse
 from .models import *
 
 def index(request):
+    ##home page
     return HttpResponse("Hello, world!")
 
 def itinerary_results(request, user_id, itinerary_id):
-    return None
+    ##results for itinerary
+    context =
+    return render(request, template, context)
 
 def build_itinerary(request, user_id):
-    return None
+    ###page where user builds itinerary
+    context =
+    return render(request, template, context)
 
 def user_detail(request, user_id):
-    return None
+    #user detailed page
+    context = 
+    return render(request, template, context)
 
 
 # Create your views here.

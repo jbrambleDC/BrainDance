@@ -43,23 +43,7 @@ class User(models.Model):
 class Route(models.Model):
     user = models.ForeignKey(User)
     location = models.ManyToManyField(Location)
-    created_at = models.DateTimeField(null=False, default=datetime.now())
-
-class Itinerary(models.Model):
-    user = models.ForeignKey(User)
-    route = models.OneToOneField(Route)
-    Activity = models.ManyToManyField(Activity)
-    ##How to map Activity_to_location
-
-class Preference(models.Model):
-    user = models.ForeignKey(User)
-    Activity = models.ForeignKey(Activity) ## ManyToManyField??
-    rating = models.IntegerField(blank=True, null=True)
-    Prefered = models.NullBooleanField()
-
-class Infographic(models.Model):
-    itinerary = models.OneToOneField(Itinerary)
-    infographic_image = models.ImageField() ##  maybe should not store as image
+    created_at = models.DateTimeField(null=False, default=timezone.now)
 
 class Activity(models.Model):
     activity_name = models.CharField(max_length=200)
@@ -84,3 +68,19 @@ class Activity(models.Model):
 
     def get_desc(self):
         return self.description
+
+class Itinerary(models.Model):
+    user = models.ForeignKey(User)
+    route = models.OneToOneField(Route)
+    activity = models.ManyToManyField(Activity)
+    ##How to map Activity_to_location
+
+class Preference(models.Model):
+    user = models.ForeignKey(User)
+    activity = models.ForeignKey(Activity) ## ManyToManyField??
+    rating = models.IntegerField(blank=True, null=True)
+    Prefered = models.NullBooleanField()
+
+class Infographic(models.Model):
+    itinerary = models.OneToOneField(Itinerary)
+    infographic_image = models.ImageField() ##  maybe should not store as image
